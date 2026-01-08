@@ -31,6 +31,7 @@ const els = {
   addTeamBtn: document.getElementById("addTeamBtn"),
   removeTeamBtn: document.getElementById("removeTeamBtn"),
   resetBtn: document.getElementById("resetBtn"),
+   resetScoresBtn: document.getElementById("resetScoresBtn"),
 };
 
 const defaultState = () => ({
@@ -257,6 +258,28 @@ function undo(){
     state.teams[last.index].name = last.oldName;
   }
 
+   if (last.type === "resetScores") {
+  last.oldScores.forEach((s, i) => {
+    state.teams[i].score = s;
+  });
+}
+
+  renderAll();
+}
+
+/* ---------- Reset ---------- */
+
+function resetScores() {
+  const oldScores = state.teams.map(t => t.score);
+
+  state.teams.forEach(t => t.score = 0);
+
+  // Für Undo merken
+  state.history.push({
+    type: "resetScores",
+    oldScores
+  });
+
   renderAll();
 }
 
@@ -302,6 +325,7 @@ els.undoBtn.addEventListener("click", undo);
 els.addTeamBtn.addEventListener("click", addTeam);
 els.removeTeamBtn.addEventListener("click", removeTeam);
 els.resetBtn.addEventListener("click", resetAll);
+els.resetScoresBtn.addEventListener("click", resetScores);
 
 // Tastatur: Pfeile links/rechts
 window.addEventListener("keydown", (e) => {
