@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Quiz Show – Scoreboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="card questionCard">
+      <div class="qHeader">
+        <div class="pill" id="categoryPill">Kategorie</div>
+        <div class="qCount" id="qCount">Frage 1 / 50</div>
+      </div>
+
+      <div class="qBody">
+        <div class="qNumber" id="qNumber">Frage 1</div>
+        <div class="qText" id="qText">—</div>
+      </div>
+
+      <div class="qFooter">
+        <button class="btn" id="prevBtn" title="Zurück">← Zurück</button>
+        <button class="btn primary" id="nextBtn" title="Weiter">Weiter →</button>
+      </div>
+      <div class="hint" id="hint">
+        Tipp: Beim Weiter-Klick kommt erst „Frage X“, erst der nächste Klick zeigt den Text.
+      </div>
+    </div>
+  </header>
+
+  <main class="bottom">
+    <div class="toolbar">
+      <button class="iconBtn danger" id="undoBtn" title="Letzte Aktion rückgängig">↶ Undo</button>
+      <div class="spacer"></div>
+      <button class="iconBtn" id="addTeamBtn" title="Team hinzufügen">＋ Team</button>
+      <button class="iconBtn" id="removeTeamBtn" title="Letztes Team entfernen">－ Team</button>
+    </div>
+
+    <section class="teams" id="teams"></section>
+
+    <footer class="footer">
+      <div class="small">
+        Punkte-Logik: <b>Richtig = +4</b> fürs Team · <b>Falsch = +1</b> für alle anderen Teams
+      </div>
+      <button class="linkBtn" id="resetBtn" title="Alles zurücksetzen">Alles zurücksetzen</button>
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
