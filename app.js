@@ -86,6 +86,7 @@ function defaultState() {
     ],
 
     history: []
+     confettiTick: 0,
   };
 }
 
@@ -296,6 +297,39 @@ function renderAll() {
   saveState();
 }
 
+/* ---------------- Confetti (Public View) ---------------- */
+
+let lastSeenConfettiTick = null;
+
+function launchConfetti() {
+  const count = 45;
+
+  for (let i = 0; i < count; i++) {
+    const piece = document.createElement("div");
+    piece.className = "confetti-piece";
+
+    piece.style.left = Math.random() * 100 + "vw";
+
+    const w = 6 + Math.random() * 8;
+    const h = 8 + Math.random() * 10;
+    piece.style.width = w + "px";
+    piece.style.height = h + "px";
+
+    piece.style.background = `hsl(${Math.random() * 360}, 90%, 60%)`;
+
+    const dur = 650 + Math.random() * 600;
+    const delay = Math.random() * 120;
+    piece.style.animationDuration = dur + "ms";
+    piece.style.animationDelay = delay + "ms";
+
+    piece.style.transform = `rotate(${Math.random() * 360}deg)`;
+
+    document.body.appendChild(piece);
+
+    setTimeout(() => piece.remove(), dur + delay + 50);
+  }
+}
+
 /* ---------------- Quizmaster: question controls ---------------- */
 function nextQuestion() {
   const total = questionCount();
@@ -321,6 +355,10 @@ function togglePublicReveal() {
 function applyCorrect(teamIndex) {
   const deltas = state.teams.map((_, i) => (i === teamIndex ? SCORE_CORRECT : 0));
   applyScoreDeltas(deltas, { type: "score", deltas });
+
+   // 🎉 Confetti triggern (Public View)
+  state.confettiTick = (state.confettiTick || 0) + 1;
+  saveState();
 }
 
 function applyWrong(teamIndex) {
@@ -400,6 +438,19 @@ window.addEventListener("storage", (e) => {
     state = loadState();
     renderQuestion();
     renderTeams();
+
+     // 🎉 CONFETTI – nur Public View
+    if (mode === "public") {
+      if (lastSeenConfettiTick === null) {
+        lastSeenConfettiTick = state.confettiTick || 0;
+      }
+
+      const current = state.confettiTick || 0;
+      if (current !== lastSeenConfettiTick) {
+        lastSeenConfettiTick = current;
+        launchConfetti();
+      }
+    }
   }
 
   if (e.key === QUESTIONS_KEY) {
