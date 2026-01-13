@@ -294,3 +294,76 @@ body{
 @media (max-width: 780px){
   .masterGrid{ grid-template-columns: 1fr; }
 }
+
+/* ---- Inputs für Fragen-Editor ---- */
+.input{
+  width: 100%;
+  padding: 12px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--stroke);
+  background: rgba(255,255,255,0.06);
+  color: var(--text);
+  font: inherit;
+  outline: none;
+}
+.input:focus{
+  border-color: rgba(79,124,255,0.55);
+  background: rgba(79,124,255,0.10);
+}
+
+.questionList{
+  display:flex;
+  flex-direction:column;
+  gap: 10px;
+}
+
+.qRow{
+  border: 1px solid var(--stroke);
+  border-radius: 14px;
+  padding: 12px;
+  background: rgba(255,255,255,0.05);
+}
+
+.qRowTop{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  justify-content:space-between;
+  flex-wrap:wrap;
+}
+
+.qRowTitle{
+  font-weight: 800;
+}
+
+.qRowMeta{
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.qRowActions{
+  display:flex;
+  gap: 8px;
+}
+
+.smallBtn{
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--stroke);
+  background: rgba(255,255,255,0.06);
+  color: var(--text);
+  cursor:pointer;
+  font-weight: 700;
+}
+.smallBtn:hover{ background: rgba(255,255,255,0.10); }
+.smallBtn.danger{
+  background: rgba(255,77,77,0.18);
+  border-color: rgba(255,77,77,0.30);
+}
+.smallBtn.danger:hover{ background: rgba(255,77,77,0.28); }
+
+.codeBox{
+  width:100%;
+  margin-top: 10px;
+}
