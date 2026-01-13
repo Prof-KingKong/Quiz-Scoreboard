@@ -48,6 +48,8 @@
       <button class="iconBtn danger" id="undoBtn" title="Letzte Aktion rückgängig">↶ Undo</button>
       <button class="iconBtn" id="resetScoresBtn" title="Alle Punkte auf 0 setzen">⟲ Punkte reset</button>
       <button class="iconBtn" id="openQuestionsBtn" title="Fragen verwalten">📝 Fragen</button>
+      <button class="iconBtn" id="openPublicBtn" title="index.html öffnen">📺 Public</button>
+      <button class="iconBtn" id="logoutBtn" title="Abmelden">🚪 Logout</button>
       <div class="spacer"></div>
       <button class="iconBtn" id="addTeamBtn" title="Team hinzufügen">＋ Team</button>
       <button class="iconBtn" id="removeTeamBtn" title="Letztes Team entfernen">－ Team</button>
@@ -63,6 +65,11 @@
     </footer>
   </main>
 
+  <script src="auth.js"></script>
+  <script>
+    // Schutz: ohne Login -> zurück zur login.html
+    window.QuizAuth?.requireAuth();
+  </script>
   <script src="app.js"></script>
 </body>
 </html>
