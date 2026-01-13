@@ -367,3 +367,20 @@ body{
   width:100%;
   margin-top: 10px;
 }
+
+/* --- Confetti (Public View) --- */
+.confetti-piece{
+  position: fixed;
+  top: -10px;
+  width: 10px;
+  height: 14px;
+  border-radius: 3px;
+  pointer-events: none;
+  z-index: 9999;
+  animation: confetti-fall 900ms linear forwards;
+}
+
+@keyframes confetti-fall{
+  0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(105vh) rotate(720deg); opacity: 0.9; }
+}
