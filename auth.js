@@ -5,7 +5,7 @@ const AUTH_KEY = "quizmaster_auth_v1";
 
 // Zugangsdaten (wie gewünscht)
 const USERNAME = "Master";
-const PASSWORD = "Quiz";
+const PASSWORD = "QuizMaster";
 
 function isAuthed() {
   return sessionStorage.getItem(AUTH_KEY) === "1";
