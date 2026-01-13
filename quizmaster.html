@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="de" data-mode="master">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Quiz Show – Quizmaster</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="card questionCard">
+      <div class="qHeader">
+        <div class="pill" id="categoryPill">Kategorie</div>
+        <div class="qCount" id="qCount">Frage 1 / 50</div>
+      </div>
+
+      <div class="qBody qBodyMaster">
+        <div class="qNumber" id="qNumber">Frage 1</div>
+
+        <div class="masterGrid">
+          <div class="masterBlock">
+            <div class="masterLabel">Frage (Quizmaster sieht immer alles)</div>
+            <div class="qText masterText" id="qmQuestion">—</div>
+          </div>
+
+          <div class="masterBlock">
+            <div class="masterLabel">Antwort</div>
+            <div class="masterAnswer" id="qmAnswer">—</div>
+          </div>
+        </div>
+
+        <div class="publicStatus">
+          <span class="pill" id="publicStatePill">Public: Übergang</span>
+          <span class="mutedSmall" id="publicHint">Beamer zeigt aktuell nur „Frage X“.</span>
+        </div>
+      </div>
+
+      <div class="qFooter">
+        <button class="btn" id="prevQuestionBtn" title="Vorherige Frage">← Frage zurück</button>
+        <button class="btn" id="toggleRevealBtn" title="Beamer: Frage ein-/ausblenden">Public umschalten</button>
+        <button class="btn primary" id="nextQuestionBtn" title="Nächste Frage">Nächste Frage →</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="bottom">
+    <div class="toolbar">
+      <button class="iconBtn danger" id="undoBtn" title="Letzte Aktion rückgängig">↶ Undo</button>
+      <button class="iconBtn" id="resetScoresBtn" title="Alle Punkte auf 0 setzen">⟲ Punkte reset</button>
+      <div class="spacer"></div>
+      <button class="iconBtn" id="addTeamBtn" title="Team hinzufügen">＋ Team</button>
+      <button class="iconBtn" id="removeTeamBtn" title="Letztes Team entfernen">－ Team</button>
+    </div>
+
+    <section class="teams" id="teams"></section>
+
+    <footer class="footer">
+      <div class="small">
+        Quizmaster View – Teamnamen per Doppelklick ändern · Richtig = +4 · Falsch = +1 für alle anderen
+      </div>
+      <button class="linkBtn" id="resetAllBtn" title="Alles zurücksetzen (Teams + Punkte + Frage)">Alles zurücksetzen</button>
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
