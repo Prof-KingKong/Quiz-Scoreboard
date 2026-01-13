@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="de" data-mode="editor">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Quiz Show – Fragen verwalten</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="card questionCard">
+      <div class="qHeader">
+        <div class="pill">Fragen-Manager</div>
+        <div class="qCount" id="qMeta">0 Fragen</div>
+      </div>
+
+      <div class="qBody" style="text-align:left;">
+        <div class="masterGrid">
+          <div class="masterBlock">
+            <div class="masterLabel">Kategorie</div>
+            <input id="inCategory" class="input" placeholder="z.B. Allgemeinwissen" />
+          </div>
+          <div class="masterBlock">
+            <div class="masterLabel">Antwort</div>
+            <input id="inAnswer" class="input" placeholder="z.B. Neuseeland" />
+          </div>
+        </div>
+
+        <div class="masterBlock" style="margin-top:14px;">
+          <div class="masterLabel">Frage (Text)</div>
+          <textarea id="inText" class="input" rows="3" placeholder="Frage hier eingeben..."></textarea>
+        </div>
+
+        <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap;">
+          <button class="btn primary" id="addBtn">+ Frage hinzufügen</button>
+          <button class="btn" id="saveBtn">Speichern</button>
+          <button class="btn" id="exportBtn">Export (JSON)</button>
+          <button class="btn" id="importBtn">Import (JSON)</button>
+          <button class="btn" id="backBtn">← Zurück zum Quizmaster</button>
+        </div>
+
+        <div class="hint" id="statusHint" style="text-align:left;"></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="bottom">
+    <div class="card" style="padding:14px;">
+      <div class="qHeader" style="margin-bottom:10px;">
+        <div class="pill">Fragenliste</div>
+        <div class="qCount">Bearbeiten / Löschen</div>
+      </div>
+
+      <div id="list" class="questionList"></div>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
