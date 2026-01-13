@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="de">
+<html lang="de" data-mode="public">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Quiz Show – Scoreboard</title>
+  <title>Quiz Show – Anzeige</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -18,31 +18,13 @@
         <div class="qNumber" id="qNumber">Frage 1</div>
         <div class="qText" id="qText">—</div>
       </div>
-
-      <div class="qFooter">
-        <button class="btn" id="prevBtn" title="Zurück">← Zurück</button>
-        <button class="btn primary" id="nextBtn" title="Weiter">Weiter →</button>
-      </div>
-      
     </div>
   </header>
 
   <main class="bottom">
-    <div class="toolbar">
-      <button class="iconBtn danger" id="undoBtn" title="Letzte Aktion rückgängig">↶ Undo</button>
-      <button class="iconBtn" id="resetScoresBtn" title="Alle Punkte auf 0 setzen">⟲ Punkte reset</button>
-      <div class="spacer"></div>
-      <button class="iconBtn" id="addTeamBtn" title="Team hinzufügen">＋ Team</button>
-      <button class="iconBtn" id="removeTeamBtn" title="Letztes Team entfernen">－ Team</button>
-    </div>
-
     <section class="teams" id="teams"></section>
-
     <footer class="footer">
-      <div class="small">
-        Punkte-Logik: <b>Richtig = +4</b> fürs Team · <b>Falsch = +1</b> für alle anderen Teams
-      </div>
-      <button class="linkBtn" id="resetBtn" title="Alles zurücksetzen">Alles zurücksetzen</button>
+      <div class="small">Public View (Beamer) – Steuerung erfolgt über Quizmaster-Seite.</div>
     </footer>
   </main>
 
