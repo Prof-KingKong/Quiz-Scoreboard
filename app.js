@@ -85,7 +85,7 @@ function defaultState() {
       { name: "Team 4", score: 0 },
     ],
 
-    history: []
+    history: [],
      confettiTick: 0,
   };
 }
@@ -102,6 +102,7 @@ function loadState() {
 
   parsed.questionIndex = clampInt(parsed.questionIndex ?? 0, 0, Math.max(0, QUESTIONS.length - 1));
   parsed.publicRevealStage = parsed.publicRevealStage === 1 ? 1 : 0;
+   parsed.confettiTick = Number.isFinite(+parsed.confettiTick) ? Math.trunc(+parsed.confettiTick) : 0;
 
   // ensure shape of teams
   parsed.teams = parsed.teams.map(t => ({
