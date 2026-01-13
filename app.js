@@ -9,13 +9,23 @@ const SCORE_CORRECT = 4;
 const SCORE_WRONG_OTHERS = 1;
 
 /** Fragen hier pflegen (jetzt inkl. answer): */
-const QUESTIONS = [
-  { category: "Allgemeinwissen", text: "Welches Land hatte als erstes Frauenwahlrecht?", answer: "Neuseeland" },
-  { category: "Allgemeinwissen", text: "Welches Land besitzt die meisten Zeitzonen (inkl. Überseegebiete)?", answer: "Frankreich" },
-  { category: "Allgemeinwissen", text: "Wie viele Tasten hat ein klassisches Klavier?", answer: "88" },
-  { category: "Allgemeinwissen", text: "Wie heißt die Hauptstadt von Montenegro?", answer: "Podgorica" },
-  { category: "Allgemeinwissen", text: "Welche Blutgruppe gilt als Universalspender?", answer: "0 negativ" },
-];
+const QUESTIONS = [];
+
+async function loadQuestions() {
+  try {
+    const res = await fetch("questions.json", { cache: "no-store" });
+    if (!res.ok) throw new Error("questions.json konnte nicht geladen werden");
+    QUESTIONS = await res.json();
+
+    // Sicherheitscheck: falls leere Datei
+    if (!Array.isArray(QUESTIONS) || QUESTIONS.length === 0) {
+      QUESTIONS = [{ category: "Keine Fragen", text: "questions.json ist leer.", answer: "—" }];
+    }
+  } catch (err) {
+    console.error(err);
+    QUESTIONS = [{ category: "Fehler", text: "questions.json nicht gefunden/kaputt.", answer: "—" }];
+  }
+}
 
 const mode = document.documentElement.dataset.mode || "public";
 
@@ -349,4 +359,8 @@ if (mode === "master"){
   });
 }
 
-renderAll();
+(async () => {
+  await loadQuestions();
+  state = loadState();   // clamp korrekt nach dem Laden
+  renderAll();
+})();
