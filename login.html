@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Quiz Show – Login</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="card questionCard" style="max-width:720px; margin: 0 auto;">
+      <div class="qHeader">
+        <div class="pill">Login</div>
+        <div class="qCount">Quizmaster Zugang</div>
+      </div>
+
+      <div class="qBody" style="text-align:left;">
+        <div class="masterBlock">
+          <div class="masterLabel">Benutzername</div>
+          <input id="username" class="input" placeholder="z.B. Master" autocomplete="username" />
+        </div>
+
+        <div class="masterBlock" style="margin-top:12px;">
+          <div class="masterLabel">Passwort</div>
+          <input id="password" class="input" type="password" placeholder="z.B. Quiz" autocomplete="current-password" />
+        </div>
+
+        <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap;">
+          <button class="btn primary" id="loginBtn">Anmelden</button>
+          <button class="btn" id="openPublicBtn" title="Public Ansicht (Beamer)">Public Ansicht öffnen</button>
+        </div>
+
+        <div class="hint" id="loginHint" style="text-align:left;"></div>
+      </div>
+    </div>
+  </header>
+
+  <script src="auth.js"></script>
+</body>
+</html>
