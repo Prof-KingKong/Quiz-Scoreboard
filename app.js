@@ -428,6 +428,16 @@ if (mode === "master") {
     window.location.href = "questions.html";
   });
 
+   // Public Ansicht (Beamer) öffnen
+  document.getElementById("openPublicBtn")?.addEventListener("click", () => {
+    window.open("index.html", "_blank");
+  });
+
+  // Logout
+  document.getElementById("logoutBtn")?.addEventListener("click", () => {
+    window.QuizAuth?.logout();
+  });
+
   // Keyboard shortcuts
   window.addEventListener("keydown", (e) => {
     if (e.key === "ArrowRight") nextQuestion();
