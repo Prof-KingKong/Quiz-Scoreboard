@@ -388,48 +388,75 @@ body{
 /* =========================
    BEAMER / PUBLIC VIEW MODE
    ========================= */
-
-.public-view .questionCard{
-  padding: 36px;
+.public-view{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-.public-view .qNumber{
-  font-size: clamp(32px, 4vw, 64px);
-  font-weight: 800;
+/* Oberer Fragenbereich bekommt mehr Platz */
+.public-view .top{
+  flex: 0 0 auto;
+}
+
+.public-view .questionCard{
+  padding: 48px 56px;
   margin-bottom: 18px;
 }
 
-.public-view .qText{
-  font-size: clamp(42px, 5.2vw, 88px);
-  line-height: 1.15;
+/* Frage Nummer */
+.public-view .qNumber{
+  font-size: clamp(38px, 4vw, 72px);
   font-weight: 800;
+  margin-bottom: 22px;
 }
 
+/* 🔥 HAUPT-FRAGETEXT (jetzt richtig groß) */
+.public-view .qText{
+  font-size: clamp(60px, 6.5vw, 120px);
+  line-height: 1.12;
+  font-weight: 900;
+}
+
+/* Kategorie & Zähler */
 .public-view .pill{
-  font-size: clamp(16px, 1.6vw, 26px);
-  padding: 8px 14px;
+  font-size: clamp(18px, 1.8vw, 28px);
+  padding: 10px 16px;
 }
 
 .public-view .qCount{
-  font-size: clamp(16px, 1.6vw, 26px);
+  font-size: clamp(18px, 1.8vw, 28px);
 }
 
-.public-view .teamName{
-  font-size: clamp(22px, 2.2vw, 40px);
+/* Unterer Bereich soll nicht unnötig viel Platz fressen */
+.public-view .bottom{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: 10px;
 }
 
-.public-view .score{
-  font-size: clamp(36px, 3.6vw, 70px);
+/* Teams kompakter, damit mehr Platz für Frage */
+.public-view .teams{
+  gap: 14px;
 }
 
 .public-view .teamCard{
-  padding: 18px 20px;
+  padding: 14px 18px;
 }
 
-.public-view .bottom{
-  gap: 22px;
+/* Teamname */
+.public-view .teamName{
+  font-size: clamp(22px, 2vw, 40px);
 }
 
+/* Punkte groß, aber nicht dominierend */
+.public-view .score{
+  font-size: clamp(36px, 3.2vw, 64px);
+}
+
+/* Footer ausblenden */
 .public-view .footer{
-  display:none; /* kein Kleinkram auf dem Beamer */
+  display:none;
 }
