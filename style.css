@@ -384,3 +384,52 @@ body{
   0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
   100% { transform: translateY(105vh) rotate(720deg); opacity: 0.9; }
 }
+
+/* =========================
+   BEAMER / PUBLIC VIEW MODE
+   ========================= */
+
+.public-view .questionCard{
+  padding: 36px;
+}
+
+.public-view .qNumber{
+  font-size: clamp(32px, 4vw, 64px);
+  font-weight: 800;
+  margin-bottom: 18px;
+}
+
+.public-view .qText{
+  font-size: clamp(42px, 5.2vw, 88px);
+  line-height: 1.15;
+  font-weight: 800;
+}
+
+.public-view .pill{
+  font-size: clamp(16px, 1.6vw, 26px);
+  padding: 8px 14px;
+}
+
+.public-view .qCount{
+  font-size: clamp(16px, 1.6vw, 26px);
+}
+
+.public-view .teamName{
+  font-size: clamp(22px, 2.2vw, 40px);
+}
+
+.public-view .score{
+  font-size: clamp(36px, 3.6vw, 70px);
+}
+
+.public-view .teamCard{
+  padding: 18px 20px;
+}
+
+.public-view .bottom{
+  gap: 22px;
+}
+
+.public-view .footer{
+  display:none; /* kein Kleinkram auf dem Beamer */
+}
