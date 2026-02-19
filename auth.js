@@ -60,7 +60,7 @@ function logout() {
   });
 
   openPublicBtn?.addEventListener("click", () => {
-    window.open("index.html", "_blank");
+    window.open("buzzer.html", "_blank");
   });
 
   // Wenn schon eingeloggt, direkt weiter
