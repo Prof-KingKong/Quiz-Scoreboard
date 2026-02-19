@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Quiz – Buzzer</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body{ display:flex; min-height:100vh; align-items:center; justify-content:center; }
+    .wrap{ width:min(720px, 92vw); }
+    .card{ padding: 20px; }
+    .bigBuzzer{
+      width: 100%;
+      height: min(52vh, 420px);
+      border-radius: 26px;
+      font-size: clamp(28px, 6vw, 64px);
+      font-weight: 900;
+      border: 2px solid rgba(255,255,255,0.20);
+      cursor: pointer;
+      user-select:none;
+    }
+    .bigBuzzer.red{ background: rgba(255,60,60,0.85); }
+    .bigBuzzer.red:hover{ background: rgba(255,60,60,0.95); }
+    .bigBuzzer.locked{ background: rgba(180,180,180,0.35); cursor:not-allowed; }
+    .row{ display:flex; gap:12px; align-items:center; margin-bottom:12px; }
+    .row input{ flex:1; }
+    .status{
+      margin-top: 12px;
+      font-size: 18px;
+      font-weight: 900;
+      text-align:center;
+    }
+    .sub{
+      margin-top: 6px;
+      color: rgba(255,255,255,0.75);
+      font-size: 14px;
+      text-align:center;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="row">
+        <input id="teamName" class="input" placeholder="Teamname eingeben…" />
+      </div>
+
+      <button id="buzzBtn" class="bigBuzzer red">BUZZER</button>
+
+      <div class="status" id="statusText"></div>
+      <div class="sub" id="subText">Wenn der Buzzer grau ist, hat schon jemand gebuzzert oder der Countdown läuft.</div>
+    </div>
+  </div>
+
+  <!-- Firebase compat -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+  <script src="firebase-config.js"></script>
+  <script src="realtime-buzzer.js"></script>
+
+  <script>
+    const teamEl = document.getElementById("teamName");
+    const btn = document.getElementById("buzzBtn");
+    const statusText = document.getElementById("statusText");
+
+    // Teamname merken (auf dem jeweiligen Handy)
+    const saved = localStorage.getItem("quiz_team_name");
+    if (saved) teamEl.value = saved;
+    teamEl.addEventListener("input", () => localStorage.setItem("quiz_team_name", teamEl.value.trim()));
+
+    let currentState = { phase: "open", winner: null, unlockAt: null };
+    let timer = null;
+
+    function setLocked(isLocked){
+      if (isLocked){
+        btn.classList.remove("red");
+        btn.classList.add("locked");
+      } else {
+        btn.classList.remove("locked");
+        btn.classList.add("red");
+      }
+    }
+
+    function render(){
+      if (currentState.phase === "open") {
+        setLocked(false);
+        statusText.textContent = "Buzzer ist frei ✅";
+        return;
+      }
+
+      setLocked(true);
+
+      if (currentState.phase === "locked") {
+        statusText.textContent = currentState.winner ? `Gebuzzert: ${currentState.winner}` : "Gebuzzert!";
+        return;
+      }
+
+      if (currentState.phase === "countdown") {
+        const ms = (currentState.unlockAt || 0) - Date.now();
+        const s = Math.max(0, Math.ceil(ms / 1000));
+        statusText.textContent = `Buzzer frei in ${s}…`;
+      }
+    }
+
+    function startTick(){
+      if (timer) clearInterval(timer);
+      timer = setInterval(async () => {
+        if (currentState.phase === "countdown") {
+          render();
+          if (Date.now() >= (currentState.unlockAt || 0)) {
+            await window.BuzzerRealtime.maybeAutoOpen();
+          }
+        }
+      }, 200);
+    }
+
+    (async () => {
+      await window.BuzzerRealtime.ensureStateExists();
+      window.BuzzerRealtime.listenBuzzer((s) => {
+        currentState = s;
+        render();
+        startTick();
+      });
+    })();
+
+    btn.addEventListener("click", async () => {
+      const name = (teamEl.value || "").trim();
+      if (!name) { alert("Bitte Teamnamen eingeben."); return; }
+      if (currentState.phase !== "open") return;
+
+      const won = await window.BuzzerRealtime.tryBuzz(name);
+      if (!won && navigator.vibrate) navigator.vibrate(120);
+    });
+  </script>
+</body>
+</html>
