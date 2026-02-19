@@ -386,10 +386,50 @@ if (mode === "public" && el.buzzerBanner && window.BuzzerRealtime) {
 
 // Master: „Buzzer frei“ startet Countdown & gibt danach frei (neutral)
 if (mode === "master" && window.BuzzerRealtime) {
+
+  const statusEl = document.getElementById("buzzerStatusMaster");
+
+  function updateMasterStatus(s) {
+    if (!statusEl) return;
+
+    statusEl.classList.remove("open", "locked", "countdown");
+
+    if (s.phase === "open") {
+      statusEl.textContent = "🟢 Buzzer frei";
+      statusEl.classList.add("open");
+    }
+
+    else if (s.phase === "locked") {
+      statusEl.textContent = s.winner
+        ? `🔴 Gesperrt – ${s.winner}`
+        : "🔴 Gesperrt";
+      statusEl.classList.add("locked");
+    }
+
+    else if (s.phase === "countdown") {
+      const ms = (s.unlockAt || 0) - Date.now();
+      const sec = Math.max(0, Math.ceil(ms / 1000));
+      statusEl.textContent = `🟡 Countdown: ${sec}…`;
+      statusEl.classList.add("countdown");
+    }
+  }
+
+  // Live-Listener
+  window.BuzzerRealtime.listenBuzzer((s) => {
+    updateMasterStatus(s);
+  });
+
+  // Countdown aktualisieren
+  setInterval(() => {
+    window.BuzzerRealtime.maybeAutoOpen?.();
+  }, 300);
+
+  // Reset Button
   el.resetBuzzerBtn?.addEventListener("click", async () => {
     await window.BuzzerRealtime.startCountdownAndRelease();
   });
 }
+
 
 /* ---------------- Wire events (master only) ---------------- */
 if (mode === "master") {
