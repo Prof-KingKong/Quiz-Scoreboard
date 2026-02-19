@@ -492,3 +492,30 @@ body{
   border: 1px solid rgba(255,255,255,0.20);
   text-align:center;
 }
+
+.buzzerStatusMaster{
+  margin-left: 12px;
+  padding: 6px 12px;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 14px;
+  display: inline-block;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+.buzzerStatusMaster.open{
+  background: rgba(0,200,100,0.25);
+  border-color: rgba(0,200,100,0.4);
+}
+
+.buzzerStatusMaster.locked{
+  background: rgba(255,0,0,0.25);
+  border-color: rgba(255,0,0,0.4);
+}
+
+.buzzerStatusMaster.countdown{
+  background: rgba(255,180,0,0.25);
+  border-color: rgba(255,180,0,0.4);
+}
+
