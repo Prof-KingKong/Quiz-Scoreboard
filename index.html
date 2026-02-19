@@ -6,28 +6,46 @@
   <title>Quiz Show – Anzeige</title>
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body class="public-view">
+  <!-- Top / Question Area -->
   <header class="top">
     <div class="card questionCard">
       <div class="qHeader">
         <div class="pill" id="categoryPill">Kategorie</div>
-        <div class="qCount" id="qCount">Frage 1 / 50</div>
+        <div class="qCount" id="qCount">Frage 1 / 1</div>
       </div>
 
       <div class="qBody">
         <div class="qNumber" id="qNumber">Frage 1</div>
         <div class="qText" id="qText">—</div>
+
+        <!-- BUZZER: zeigt NUR Teamname (oder Countdown, je nach app.js Einstellung) -->
+        <div id="buzzerBanner" class="buzzerBanner" style="display:none;"></div>
       </div>
     </div>
   </header>
 
+  <!-- Bottom / Teams Area -->
   <main class="bottom">
-    <section class="teams" id="teams"></section>
-    <footer class="footer">
-      <div class="small">Public View (Beamer) – Steuerung erfolgt über Quizmaster-Seite.</div>
-    </footer>
+    <div class="teams" id="teams">
+      <!-- Teams werden durch app.js gerendert -->
+    </div>
   </main>
 
+  <div class="footer">
+    Public View (Beamer) – Steuerung erfolgt über Quizmaster-Seite.
+  </div>
+
+  <!-- Firebase compat -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+  <!-- Your Firebase config + realtime buzzer -->
+  <script src="firebase-config.js"></script>
+  <script src="realtime-buzzer.js"></script>
+
+  <!-- Main app -->
   <script src="app.js"></script>
 </body>
 </html>
