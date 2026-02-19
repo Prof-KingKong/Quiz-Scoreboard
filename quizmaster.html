@@ -6,70 +6,91 @@
   <title>Quiz Show – Quizmaster</title>
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
+  <!-- Top / Question + Answer -->
   <header class="top">
     <div class="card questionCard">
       <div class="qHeader">
         <div class="pill" id="categoryPill">Kategorie</div>
-        <div class="qCount" id="qCount">Frage 1 / 50</div>
+        <div class="qCount" id="qCount">Frage 1 / 1</div>
       </div>
 
-      <div class="qBody qBodyMaster">
+      <div class="qBody" style="text-align:left;">
         <div class="qNumber" id="qNumber">Frage 1</div>
 
         <div class="masterGrid">
           <div class="masterBlock">
             <div class="masterLabel">Frage (Quizmaster sieht immer alles)</div>
-            <div class="qText masterText" id="qmQuestion">—</div>
+            <div class="masterBox" id="qmQuestion">—</div>
           </div>
 
           <div class="masterBlock">
             <div class="masterLabel">Antwort</div>
-            <div class="masterAnswer" id="qmAnswer">—</div>
+            <div class="masterBox" id="qmAnswer">—</div>
           </div>
         </div>
 
-        <div class="publicStatus">
-          <span class="pill" id="publicStatePill">Public: Übergang</span>
-          <span class="mutedSmall" id="publicHint">Beamer zeigt aktuell nur „Frage X“.</span>
+        <div class="hintRow">
+          <div class="pill subtle" id="publicStatePill">Public: Übergang</div>
+          <div class="hint" id="publicHint">Beamer zeigt aktuell nur „Frage X“.</div>
         </div>
-      </div>
 
-      <div class="qFooter">
-        <button class="btn" id="prevQuestionBtn" title="Vorherige Frage">← Frage zurück</button>
-        <button class="btn" id="toggleRevealBtn" title="Beamer: Frage ein-/ausblenden">Public umschalten</button>
-        <button class="btn primary" id="nextQuestionBtn" title="Nächste Frage">Nächste Frage →</button>
+        <div class="navRow">
+          <button class="btn" id="prevQuestionBtn">← Frage zurück</button>
+          <button class="btn" id="toggleRevealBtn">Public umschalten</button>
+          <button class="btn primary" id="nextQuestionBtn">Nächste Frage →</button>
+        </div>
       </div>
     </div>
   </header>
 
-  <main class="bottom">
-    <div class="toolbar">
-      <button class="iconBtn danger" id="undoBtn" title="Letzte Aktion rückgängig">↶ Undo</button>
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <div class="toolbarLeft">
+      <button class="iconBtn danger" id="undoBtn" title="Letzte Aktion rückgängig">↩ Undo</button>
       <button class="iconBtn" id="resetScoresBtn" title="Alle Punkte auf 0 setzen">⟲ Punkte reset</button>
+
+      <!-- NEW: Buzzer reset (Countdown -> frei) -->
+      <button class="iconBtn" id="resetBuzzerBtn" title="Buzzer mit Countdown freigeben">🔓 Buzzer frei</button>
+
       <button class="iconBtn" id="openQuestionsBtn" title="Fragen verwalten">📝 Fragen</button>
-      <button class="iconBtn" id="openPublicBtn" title="index.html öffnen">📺 Public</button>
-      <button class="iconBtn" id="logoutBtn" title="Abmelden">🚪 Logout</button>
-      <div class="spacer"></div>
-      <button class="iconBtn" id="addTeamBtn" title="Team hinzufügen">＋ Team</button>
-      <button class="iconBtn" id="removeTeamBtn" title="Letztes Team entfernen">－ Team</button>
+      <button class="iconBtn" id="openPublicBtn" title="Public/Beamer Ansicht öffnen">📺 Public</button>
     </div>
 
-    <section class="teams" id="teams"></section>
+    <div class="toolbarRight">
+      <button class="iconBtn" id="addTeamBtn" title="Team hinzufügen">+ Team</button>
+      <button class="iconBtn" id="removeTeamBtn" title="Letztes Team entfernen">- Team</button>
+      <button class="iconBtn" id="logoutBtn" title="Abmelden">🚪 Logout</button>
+    </div>
+  </div>
 
-    <footer class="footer">
-      <div class="small">
-        Quizmaster View – Teamnamen per Doppelklick ändern · Richtig = +4 · Falsch = +1 für alle anderen
-      </div>
-      <button class="linkBtn" id="resetAllBtn" title="Alles zurücksetzen (Teams + Punkte + Frage)">Alles zurücksetzen</button>
-    </footer>
+  <!-- Bottom / Teams -->
+  <main class="bottom">
+    <div class="teams" id="teams">
+      <!-- Teams werden durch app.js gerendert -->
+    </div>
   </main>
 
+  <div class="footer">
+    Quizmaster View – Teamnamen per Klick editierbar · Richtig/Falsch vergibt Punkte
+  </div>
+
+  <!-- Firebase compat -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+  <!-- Firebase config + realtime buzzer -->
+  <script src="firebase-config.js"></script>
+  <script src="realtime-buzzer.js"></script>
+
+  <!-- Auth gate -->
   <script src="auth.js"></script>
   <script>
-    // Schutz: ohne Login -> zurück zur login.html
     window.QuizAuth?.requireAuth();
   </script>
+
+  <!-- Main app -->
   <script src="app.js"></script>
 </body>
 </html>
